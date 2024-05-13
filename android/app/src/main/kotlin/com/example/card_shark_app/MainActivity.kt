@@ -1,4 +1,4 @@
-package com.losaqio.utility.free
+package com.look.ofgame.utills
 
 import io.flutter.embedding.android.FlutterActivity
 
