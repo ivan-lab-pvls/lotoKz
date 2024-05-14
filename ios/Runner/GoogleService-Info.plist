@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAfAeWBIuu0vQLDrf8tUoF9TyT9jIbbrSI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>659697689442</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.look.ofgame.utills</string>
+	<key>PROJECT_ID</key>
+	<string>lotkz-1c292</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lotkz-1c292.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:659697689442:ios:060da4145ecf471d71423b</string>
+</dict>
+</plist>
