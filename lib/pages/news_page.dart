@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+String advID = '';
+
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
 

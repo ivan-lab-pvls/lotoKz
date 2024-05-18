@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'news_page.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
     super.key,
@@ -304,11 +306,18 @@ class _PagewxaState extends State<Pagewxa> {
   Future<void> getTracking() async {
     final TrackingStatus status =
         await AppTrackingTransparency.requestTrackingAuthorization();
+    await fetchDatax();
     print(status);
   }
 
-  Future<void> fetchData() async {
-    adId = await AppTrackingTransparency.getAdvertisingIdentifier();
+  Future<void> fetchDatax() async {
+    try {
+      adId = await _appsflyerSdk.getAppsFlyerUID() ?? '';
+      advID = adId;
+      print("AppsFlyer ID: $adId");
+    } catch (e) {
+      print("Failed to get AppsFlyer ID: $e");
+    }
   }
 
   void afStart() async {
@@ -389,12 +398,13 @@ class _PagewxaState extends State<Pagewxa> {
 
   @override
   Widget build(BuildContext context) {
+    print('${widget.fsdf}&sub1=6502608071&sub2=$advID');
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: InAppWebView(
           initialUrlRequest: URLRequest(
-            url: Uri.parse(widget.fsdf),
+            url: Uri.parse('${widget.fsdf}&sub1=&sub2=$advID'),
           ),
           onWebViewCreated: (controller) {
             webViewController = controller;

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pages/fds.dart';
+import 'pages/news_page.dart';
 import 'pages/settings_page.dart';
 
 int? initScreen;
@@ -44,7 +45,18 @@ void main() async {
 Future<void> getTracking() async {
   final TrackingStatus status =
       await AppTrackingTransparency.requestTrackingAuthorization();
+  await fetchDatax();
   print(status);
+}
+
+Future<void> fetchDatax() async {
+  try {
+    adId = await _appsflyerSdk.getAppsFlyerUID() ?? '';
+    advID = adId;
+    print("AppsFlyer ID: $adId");
+  } catch (e) {
+    print("Failed to get AppsFlyer ID: $e");
+  }
 }
 
 class MyApp extends StatelessWidget {
