@@ -1,5 +1,6 @@
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
+import 'package:card_shark_app/main.dart';
 import 'package:card_shark_app/pages/show.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -295,12 +296,13 @@ class _PagewxaState extends State<Pagewxa> {
   String _afStatus = '';
   String _campaign = '';
   String _campaignId = '';
-
+  String urixMain = "";
   @override
   void initState() {
     super.initState();
     getTracking();
     afStart();
+    urixMain = widget.fsdf;
   }
 
   Future<void> getTracking() async {
@@ -310,20 +312,10 @@ class _PagewxaState extends State<Pagewxa> {
     print(status);
   }
 
-  Future<void> fetchDatax() async {
-    try {
-      adId = await _appsflyerSdk.getAppsFlyerUID() ?? '';
-      advID = adId;
-      print("AppsFlyer ID: $adId");
-    } catch (e) {
-      print("Failed to get AppsFlyer ID: $e");
-    }
-  }
-
   void afStart() async {
     final AppsFlyerOptions options = AppsFlyerOptions(
       showDebug: false,
-      afDevKey: 'knxyqhoEmbXe4zrXV6ocB7',
+      afDevKey: 'XFtWP6JvpRRFdnypp4woCV',
       appId: '6502608071',
       timeToWaitForATTUserAuthorization: 15,
       disableAdvertisingIdentifier: false,
@@ -398,13 +390,15 @@ class _PagewxaState extends State<Pagewxa> {
 
   @override
   Widget build(BuildContext context) {
-    print('${widget.fsdf}&sub1=6502608071&sub2=$advID');
+    final String url =
+        '${widget.fsdf}&sub1=${widget.xas}&sub2=${widget.dasdsa}';
+    print("Request URL: $url");
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: InAppWebView(
           initialUrlRequest: URLRequest(
-            url: Uri.parse('${widget.fsdf}&sub1=&sub2=$advID'),
+            url: Uri.parse(url),
           ),
           onWebViewCreated: (controller) {
             webViewController = controller;

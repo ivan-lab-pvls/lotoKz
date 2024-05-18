@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:card_shark_app/pages/firebase_options.dart';
@@ -8,9 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'pages/fds.dart';
-import 'pages/news_page.dart';
 import 'pages/settings_page.dart';
 
 int? initScreen;
@@ -25,7 +22,8 @@ bool _isFirstLaunch = false;
 String _afStatus = '';
 String _campaign = '';
 String _campaignId = '';
-void main() async {
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppTrackingTransparency.requestTrackingAuthorization();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -35,76 +33,19 @@ void main() async {
   ));
   await FirebaseRemoteConfig.instance.fetchAndActivate();
   await NOdsadas().activate();
-  await getTracking();
+  await initAppsflyerSdk();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   initScreen = preferences.getInt('initScreen');
   await preferences.setInt('initScreen', 1);
   runApp(const MyApp());
 }
 
-Future<void> getTracking() async {
-  final TrackingStatus status =
-      await AppTrackingTransparency.requestTrackingAuthorization();
-  await fetchDatax();
-  print(status);
-}
-
-Future<void> fetchDatax() async {
-  try {
-    adId = await _appsflyerSdk.getAppsFlyerUID() ?? '';
-    advID = adId;
-    print("AppsFlyer ID: $adId");
-  } catch (e) {
-    print("Failed to get AppsFlyer ID: $e");
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-          background: const Color(0xFF2D3254),
-        ),
-        useMaterial3: true,
-      ),
-      home: FutureBuilder<bool>(
-        future: checkNewsFinance(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              color: Colors.black,
-            );
-          } else {
-            if (snapshot.data == true && vgfdgfd != '') {
-              return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  home: Pagewxa(
-                    fsdf: vgfdgfd,
-                    xas: dasdas,
-                    dasdsa: hgdf,
-                  ));
-            } else {
-              return const SplashPage();
-            }
-          }
-        },
-      ),
-    );
-  }
-}
-
-void fsdfds() async {
+Future<void> initAppsflyerSdk() async {
   final AppsFlyerOptions options = AppsFlyerOptions(
     showDebug: false,
-    afDevKey: 'knxyqhoEmbXe4zrXV6ocB7',
+    afDevKey: 'XFtWP6JvpRRFdnypp4woCV',
     appId: '6502608071',
-    timeToWaitForATTUserAuthorization: 15,
+    timeToWaitForATTUserAuthorization: 50,
     disableAdvertisingIdentifier: false,
     disableCollectASA: false,
     manualStart: true,
@@ -116,6 +57,7 @@ void fsdfds() async {
     registerOnAppOpenAttributionCallback: true,
     registerOnDeepLinkingCallback: true,
   );
+
   _appsflyerSdk.onAppOpenAttribution((res) {
     _deepLinkData = res;
     hgdf = res['payload']
@@ -153,7 +95,6 @@ void fsdfds() async {
         break;
     }
     print("onDeepLinking res: " + dp.toString());
-
     _deepLinkData = dp.toJson();
   });
 
@@ -165,13 +106,61 @@ void fsdfds() async {
       print("AppsFlyer SDK initialized successfully.");
     },
   );
+
+  await fetchDatax();
+}
+
+Future<void> fetchDatax() async {
+  try {
+    adId = await _appsflyerSdk.getAppsFlyerUID() ?? '';
+    print("AppsFlyer ID: $adId");
+  } catch (e) {
+    print("Failed to get AppsFlyer ID: $e");
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          background: const Color(0xFF2D3254),
+        ),
+        useMaterial3: true,
+      ),
+      home: FutureBuilder<bool>(
+        future: checkNewsFinance(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              color: Colors.black,
+            );
+          } else {
+            if (snapshot.data == true && vgfdgfd != '') {
+              return Pagewxa(
+                fsdf: vgfdgfd,
+                xas: '6502608071',
+                dasdsa: adId,
+              );
+            } else {
+              return const SplashPage();
+            }
+          }
+        },
+      ),
+    );
+  }
 }
 
 String vgfdgfd = '';
 Future<bool> checkNewsFinance() async {
   final fetchNx = FirebaseRemoteConfig.instance;
   await fetchNx.fetchAndActivate();
-  fsdfds();
   String cdsfgsd = fetchNx.getString('fin');
   String cdsfgsdx = fetchNx.getString('finx');
   if (!cdsfgsd.contains('nonefix')) {
